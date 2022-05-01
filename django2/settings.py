@@ -166,8 +166,8 @@ if cwd == '/app' or cwd[:4] == '/tmp':
 
     # Only allow heroku to host the project.
 
-    ALLOWED_HOSTS = ['*']
-    DEBUG = True
+    ALLOWED_HOSTS = ['produto-cobra.herokuapp.com/']
+    DEBUG = False
 
     # Static asset configuration
     BASE_DIR = os.path.dirname(os.path.abspath(__file__))
