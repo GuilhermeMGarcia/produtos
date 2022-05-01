@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.contrib import messages
 from . import forms
@@ -5,10 +6,15 @@ from . import models
 
 
 def index(request):
+    return render(request, 'index.html')
+
+
+@login_required
+def produto(request):
     context = {
         'produtos': models.Produto.objects.all()
     }
-    return render(request, 'index.html', context)
+    return render(request, 'produto.html', context)
 
 
 def contato(request):
@@ -28,10 +34,13 @@ def contato(request):
     return render(request, 'contato.html', context)
 
 
-def produto(request):
+@login_required
+def cadastrar(request):
     if str(request.method) == 'POST':
         form = forms.ProdutoModelForm(request.POST, request.FILES)
         if form.is_valid():
+            new_produto = form.save(commit=False)
+            new_produto.owner = request.user
             form.save()
             messages.success(request, 'Produto salvo com sucesso!')
             form = forms.ProdutoModelForm()
@@ -44,4 +53,4 @@ def produto(request):
         'form': form
     }
 
-    return render(request, 'produto.html', context)
+    return render(request, 'cadastrar.html', context)

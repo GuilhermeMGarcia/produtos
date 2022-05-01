@@ -1,27 +1,62 @@
 <!DOCTYPE html>
+{% extends "base.html" %}
 {% load bootstrap4 %}
+{% load static %}
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Produto</title>
+    <title>Produtos</title>
     {% bootstrap_css %}
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <h1>Produto</h1>
+    {% block content %}
+        <div class="container">
+            <h1>Produtos</h1>
 
-        {% bootstrap_messages %}
-        <form action="{% url 'produto' %}" method="post" class="form" autocomplete="off" enctype="multipart/form-data">
+            <table class="table table-dark table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Produto</th>
+                        <th scope="col">Preço</th>
+                        <th scope="col">Estoque</th>
+                    </tr>
+                </thead>
 
-            {% csrf_token %}
-            {% bootstrap_form form %}
-            {% buttons %}
-                <button type="submit" class="btn btn-primary">Cadastrar</button>
-            {% endbuttons %}
+                <tbody>
+                    {% for produto in produtos %}
+                        <tr>
+                            <th scope="row">{{ produto.id }}</th>
+                            <td><a href="#modal{{ produto.id }}" id="modal" data-toggle="modal">{{ produto.nome }}</a></td>
+                            <td>{{ produto.preco }}</td>
+                            <td>{{ produto.estoque }}</td>
+                        </tr>
 
-        </form>
-    </div>
+                        <div class="modal fade bd-example-modal-lg show" id="modal{{ produto.id }}" role="dialog">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
 
+                                    <div class="modal-body" id="dynamic-content">
+                                        <img src="{{ produto.imagem.url }}" class="img-fluid" alt="{{ produto.nome }}"/>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <p>
+                <a href="{% url 'django2_core:cadastrar'%}" id="preto">Cadastrar</a>
+            </p>
+        </div>
+    {% endblock content %}
 {% bootstrap_javascript jquery='full' %}
 </body>
 </html>

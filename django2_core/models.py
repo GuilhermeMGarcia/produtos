@@ -1,5 +1,6 @@
 from django.db import models
 from stdimage.models import StdImageField
+from django.contrib.auth.models import User
 
 # Signals
 from django.db.models import signals
@@ -20,6 +21,7 @@ class Produto(Base):
     preco = models.DecimalField('Preço', max_digits=8, decimal_places=2)
     estoque = models.IntegerField('Estoque')
     imagem = StdImageField('Imagem', upload_to='produtos', variations={'thumb': (124, 124)})
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
     slug = models.SlugField('Slug', max_length=100, blank=True, editable=False)
 
     def __str__(self):

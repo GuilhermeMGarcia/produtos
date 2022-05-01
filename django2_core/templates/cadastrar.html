@@ -4,26 +4,27 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Contato</title>
+    <title>Cadastro</title>
     {% bootstrap_css %}
 </head>
 <body>
     {% block content %}
-
         <div class="container">
-            <h1>Contato</h1>
-            {% bootstrap_messages %}
+            <h1>Produto</h1>
 
-            <form action="{% url 'django2_core:contato' %}" method="post" class="form" autocomplete="off">
+            {% bootstrap_messages %}
+            <form action="{% url 'django2_core:cadastrar' %}" method="post" class="form" autocomplete="off" enctype="multipart/form-data">
+
                 {% csrf_token %}
                 {% bootstrap_form form %}
                 {% buttons %}
-                    <button type="submit" class="btn btn-primary">Enviar Mensagem</button>
+                    <button type="submit" class="btn btn-primary">Cadastrar</button>
                 {% endbuttons %}
+
             </form>
         </div>
+    {% endblock content %}
 
-    {% endblock content%}
 {% bootstrap_javascript jquery='full' %}
 </body>
 </html>
