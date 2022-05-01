@@ -166,7 +166,7 @@ if cwd == '/app' or cwd[:4] == '/tmp':
 
     # Only allow heroku to host the project.
 
-    ALLOWED_HOSTS = ['ocobra-log.herokuapp.com']
+    ALLOWED_HOSTS = ['*']
     DEBUG = False
 
     # Static asset configuration
