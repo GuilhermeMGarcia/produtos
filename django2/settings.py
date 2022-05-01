@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-2%4qpxbh$aq-%ucgl(-$p&!)jw!c(2z=7ly+@pzq4dp6@(_j1k
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['localhost']
 
 
 # Application definition
@@ -62,7 +62,7 @@ ROOT_URLCONF = 'django2.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates'],
+        'DIRS': [os.path.join(BASE_DIR), 'django2/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -132,10 +132,10 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 # My config
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 MEDIA_URL = 'media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 LOGIN_URL = '/users/login/'
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
@@ -166,7 +166,7 @@ if cwd == '/app' or cwd[:4] == '/tmp':
 
     # Only allow heroku to host the project.
 
-    ALLOWED_HOSTS = ['produto-cobra.herokuapp.com/']
+    ALLOWED_HOSTS = ['produto-cobra.herokuapp.com']
     DEBUG = False
 
     # Static asset configuration
